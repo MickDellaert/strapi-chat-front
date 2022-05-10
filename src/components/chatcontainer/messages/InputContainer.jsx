@@ -4,10 +4,10 @@ import Button from "./Button";
 const InputContainer = () => {
   return (
     <>
-      <div>inputcontainer</div>
-      <Input />
-      <Button/>
-
+      <div className="input-container absolute bottom-0 w-full h-1/8 p-4">
+        <Input />
+        <Button />
+      </div>
     </>
   );
 };

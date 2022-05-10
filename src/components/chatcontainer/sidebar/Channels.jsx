@@ -2,10 +2,9 @@ import Channel from "./Channel";
 
 const Channels = () => {
   return (
-    <>
-      <div>channels</div>
+    <div className="channels">
       <Channel />
-    </>
+    </div>
   );
 };
 

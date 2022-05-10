@@ -1,5 +1,5 @@
 const Button = () => {
-  return ( <button>button</button> );
+  return ( <button className="p-2 bg-indigo-900">button</button> );
 }
  
 export default Button;

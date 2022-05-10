@@ -4,9 +4,10 @@ import ChatContainer from "./chatcontainer/ChatContainer";
 const MainContainer = () => {
   return (
     <>
-      <div>maincontainer</div>
-      <MainHeader />
-      <ChatContainer />
+      <div className="main-container container mx-auto h-full py-6" >
+        <MainHeader />
+        <ChatContainer />
+      </div>
     </>
   );
 };

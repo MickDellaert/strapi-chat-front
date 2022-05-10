@@ -3,8 +3,9 @@ import Message from "./Message";
 const Messages = () => {
   return (
     <>
-      <div>messages</div>
-      <Message />
+      <div className="messages p-4 h-7/8">
+        <Message />
+      </div>
     </>
   );
 };

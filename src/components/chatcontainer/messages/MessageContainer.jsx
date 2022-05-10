@@ -4,10 +4,10 @@ import InputContainer from "./InputContainer";
 const MessageContainer = () => {
   return (
     <>
-      <div>messagecontainer</div>
-      <Messages />
-      <InputContainer/>
-
+      <div className="message-container relative col-span-8 bg-indigo-200">
+        <Messages />
+        <InputContainer />
+      </div>
     </>
   );
 };
