@@ -1,10 +1,10 @@
 import Message from "./Message";
 
-const Messages = () => {
+const Messages = ({ input, message }) => {
   return (
     <>
       <div className="messages p-4 h-7/8">
-        <Message />
+        <Message input={input} message={message} />
       </div>
     </>
   );

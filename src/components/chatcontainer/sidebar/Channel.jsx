@@ -1,5 +1,5 @@
 const Channel = () => {
-  return ( <div>channel</div> );
-}
- 
+  return <div>channel</div>;
+};
+
 export default Channel;
