@@ -2,31 +2,42 @@
 @tailwind components;
 @tailwind utilities;
 
-/*
-  1. Use a more-intuitive box-sizing model.
-*/
+/* css reset from: https://www.joshwcomeau.com/css/custom-css-reset */
+
 *,
 *::before,
 *::after {
   box-sizing: border-box;
   /* overflow: hidden; */
 }
-/*
-  2. Remove default margin
-*/
+
 * {
   margin: 0;
   padding: 0;
 }
 
-/*
-  3. Allow percentage-based heights in the application
-*/
 html,
 body {
   height: 100%;
 }
 
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+input, button, textarea, select {
+  font: inherit;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
 
 #root,
 #__next {
@@ -35,5 +46,5 @@ body {
 }
 
 body {
-  background-color: #e0e7ff;
+  background-color: #EEF2FF;
 }
