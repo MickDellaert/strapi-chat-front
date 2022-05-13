@@ -1,10 +1,17 @@
 import Message from "./Message";
 
-const Messages = ({ input, message }) => {
+const Messages = ({ message, data }) => {
+
+  console.log(data)
+
+
+
   return (
     <>
       <div className="messages p-4 h-7/8">
-        <Message input={input} message={message} />
+        {data.data.map( testmessage => 
+          <Message testmessage={testmessage} message={message} data={data} /> )}
+        
       </div>
     </>
   );
