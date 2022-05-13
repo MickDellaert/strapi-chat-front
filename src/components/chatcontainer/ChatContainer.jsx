@@ -5,26 +5,42 @@ import SideBar from "./sidebar/SideBar";
 import MessageContainer from "./messages/MessageContainer";
 
 const ChatContainer = () => {
+  const [message, setMessage] = useState("");
+
   const { data, error, loading } = useFetch(
     "http://localhost:1337/api/messages"
   );
-
-  const [input, setInput] = useState("");
-  const [message, setMessage] = useState("");
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
 
   const getInput = (e) => {
-    if (e.target.value !== "") {
-      setInput(e.target.value);
-    }
+    setMessage(e.target.value);
   };
 
   const getMessage = () => {
-    if (input.length > 0) {
-      setMessage(input);
+    // e.preventDefault();
+
+    const newMessage = message;
+
+    async function createNewProduct(newMessage) {
+      const url = `http://localhost:1337/api/messages`;
+      const body = {
+        data: {
+          messagebody: newMessage,
+        },
+      };
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
+      return response.json();
     }
+
+    createNewProduct(newMessage);
   };
 
   return (
@@ -33,9 +49,7 @@ const ChatContainer = () => {
         <SideBar />
         <MessageContainer
           getInput={getInput}
-          input={input}
           getMessage={getMessage}
-          message={message}
           data={data}
         />
       </div>

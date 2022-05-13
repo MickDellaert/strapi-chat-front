@@ -1,10 +1,10 @@
-const Input = ({getInput, input}) => {
+const Input = ({getInput, message}) => {
   return (
     <input
       className="col-span-8"
       type="text"
       onChange={getInput}
-      value={input}
+      value={message}
     />
   );
 };

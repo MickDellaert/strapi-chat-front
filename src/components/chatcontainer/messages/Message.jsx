@@ -1,18 +1,14 @@
-const Message = ({ message, testmessage }) => {
-
-  console.log(testmessage)
+const Message = ({ mapmessage }) => {
   const {
     id,
-    attributes: {
-      body
-    }
-  } = testmessage
-
+    attributes: { messagebody },
+  } = mapmessage;
 
   return (
     <div className="h-16 rounded-sm p-2 bg-zinc-50">
-      <p>{body} {id}</p>
-      <p>{message}</p>
+      <p>
+        {messagebody} {id}
+      </p>
     </div>
   );
 };
