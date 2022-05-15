@@ -1,10 +1,15 @@
+import useFetch from "../../hooks/useFetch";
+
 import { Link } from "react-router-dom";
 
 import { useState } from "react";
 
-function Login(props) {
+function Login() {
 
   const [username, setUsername] = useState("");
+
+    const { data } = useFetch("http://localhost:1337/api/chatusers");
+
 
 
   const getInput = (e) => {
@@ -25,8 +30,9 @@ function Login(props) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(body),
-    });
-    return response.json();
+    }).then;
+    let userdata = response.json();
+    console.log(userdata)
   }
 
   const postUser = () => {
@@ -38,11 +44,15 @@ function Login(props) {
     createNewUser(newUser);
   };
 
+
+  console.log("userdata" + data)
+
+
   return (
     <>
       <input value={username} onChange={getInput} />
 
-      <Link to={`/chat/${username}`} state={username} >
+      <Link to={`/chat/${24}`} state={username} >
         <button onClick={postUser}>button</button>
       </Link>
     </>
