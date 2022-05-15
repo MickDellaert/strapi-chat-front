@@ -4,7 +4,7 @@ import useFetch from "../../hooks/useFetch";
 import SideBar from "./sidebar/SideBar";
 import MessageContainer from "./messages/MessageContainer";
 
-const ChatContainer = () => {
+const ChatContainer = ({currentUserName}) => {
   const [message, setMessage] = useState("");
   const [currentUser, setCurrentUser] = useState("");
   const [newMessage, setNewMessage] = useState("");
@@ -14,13 +14,14 @@ const ChatContainer = () => {
     newMessage
   );
 
+
   const { data: users } = useFetch("http://localhost:1337/api/chatusers");
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
 
   console.log(users);
-  
+
   // console.log(data.at(-1));
 
   // console.log(data.data[2].attributes.chatusers.data[2].attributes.username);
@@ -59,8 +60,6 @@ const getCurrentUser = () =>{
     console.log(newMessage);
     createNewMessage(newMessage);
   };
-
-
 
   return (
     <>
