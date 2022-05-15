@@ -6,42 +6,47 @@ import MessageContainer from "./messages/MessageContainer";
 
 const ChatContainer = () => {
   const [message, setMessage] = useState("");
-
+  const [newMessage, setNewMessage] = useState("")
+  
   const { data, error, loading } = useFetch(
-    "http://localhost:1337/api/messages"
+    "http://localhost:1337/api/messages", newMessage 
   );
 
+  
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
+
 
   const getInput = (e) => {
     setMessage(e.target.value);
   };
 
-  const getMessage = () => {
+  async function createNewMessage(newMessage) {
+    const url = `http://localhost:1337/api/messages`;
+    const body = {
+      data: {
+        messagebody: newMessage,
+      },
+    };
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+    return response.json();
+  }
+
+  const postMessage = () => {
     // e.preventDefault();
 
     const newMessage = message;
-
-    async function createNewProduct(newMessage) {
-      const url = `http://localhost:1337/api/messages`;
-      const body = {
-        data: {
-          messagebody: newMessage,
-        },
-      };
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      });
-      return response.json();
-    }
-
-    createNewProduct(newMessage);
+    setNewMessage(newMessage)
+    console.log(newMessage)
+    createNewMessage(newMessage);
   };
+
 
   return (
     <>
@@ -49,7 +54,7 @@ const ChatContainer = () => {
         <SideBar />
         <MessageContainer
           getInput={getInput}
-          getMessage={getMessage}
+          postMessage={postMessage}
           data={data}
         />
       </div>
