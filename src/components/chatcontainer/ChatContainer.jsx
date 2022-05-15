@@ -6,7 +6,7 @@ import MessageContainer from "./messages/MessageContainer";
 
 const ChatContainer = () => {
   const [message, setMessage] = useState("");
-  const [newUser, setNewUser] = useState("");
+  const [currentUser, setCurrentUser] = useState("");
   const [newMessage, setNewMessage] = useState("");
 
   const { data, error, loading } = useFetch(
@@ -14,13 +14,17 @@ const ChatContainer = () => {
     newMessage
   );
 
+  const { data: users } = useFetch("http://localhost:1337/api/chatusers");
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
 
-    // console.log(data);
+  console.log(users);
+  
+  // console.log(data.at(-1));
 
-  console.log(data.data[0].attributes.chatusers.data[0].attributes.username);
+  // console.log(data.data[2].attributes.chatusers.data[2].attributes.username);
+
 
   const getInput = (e) => {
     setMessage(e.target.value);
@@ -43,6 +47,10 @@ const ChatContainer = () => {
     return response.json();
   }
 
+const getCurrentUser = () =>{
+
+}
+
   const postMessage = () => {
     // e.preventDefault();
 
@@ -51,6 +59,8 @@ const ChatContainer = () => {
     console.log(newMessage);
     createNewMessage(newMessage);
   };
+
+
 
   return (
     <>

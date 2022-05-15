@@ -1,13 +1,19 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 import "./App.css";
 import MainContainer from "./components/MainContainer";
 import Login from "./components/login/Login";
 
 function App() {
   return (
-    <div className="App h-full">
-      <Login/>
-      <MainContainer />
-    </div>
+    <Router>
+      <div className="App h-full">
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="chat" element={<MainContainer />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
