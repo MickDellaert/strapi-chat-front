@@ -4,9 +4,8 @@ import useFetch from "../../hooks/useFetch";
 import SideBar from "./sidebar/SideBar";
 import MessageContainer from "./messages/MessageContainer";
 
-const ChatContainer = ({ currentUserName }) => {
+const ChatContainer = ({ currentUserName, userId }) => {
   const [message, setMessage] = useState("");
-  const [currentUser, setCurrentUser] = useState("");
   const [newMessage, setNewMessage] = useState("");
 
   const { data, error, loading } = useFetch(
@@ -14,29 +13,17 @@ const ChatContainer = ({ currentUserName }) => {
     newMessage
   );
 
-  const { data: users } = useFetch("http://localhost:1337/api/chatusers");
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :(</p>;
-
-  // console.log(users);
-
-  // console.log(data.at(-1));
-
-  // console.log(data.data[2].attributes.chatusers.data[2].attributes.username);
-
   const getInput = (e) => {
     setMessage(e.target.value);
   };
 
-  async function createNewMessage(newMessage, currentUserName) {
+  async function createNewMessage(newMessage, userId) {
     const url = `http://localhost:1337/api/messages`;
-    console.log("current" + currentUserName);
 
     const body = {
       data: {
         messagebody: newMessage,
-        chatusers: { id: currentUserName },
+        chatusers: { id: userId },
       },
     };
     const response = await fetch(url, {
@@ -49,20 +36,22 @@ const ChatContainer = ({ currentUserName }) => {
     return response.json();
   }
 
-
   const postMessage = () => {
-    // e.preventDefault();
-    
     const newMessage = message;
     setNewMessage(newMessage);
-    // console.log(newMessage);
-    createNewMessage(newMessage, currentUserName);
+    createNewMessage(newMessage, userId);
   };
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error :(</p>;
 
   return (
     <>
       <div className="chat-container grid grid-cols-10 h-7/8">
-        <p>{currentUserName}{message}</p>
+        <p>
+          {currentUserName}
+          {userId}
+        </p>
         <SideBar />
         <MessageContainer
           getInput={getInput}

@@ -6,15 +6,18 @@ import Login from "./components/login/Login";
 
 function App() {
   return (
+<>
+    
     
     <Router>
       <div className="App h-full">
         <Routes>
           <Route path="/" element={<Login  />} />
-          <Route path="chat/:id" element={<MainContainer />} />
+          <Route path="/chat/:id" element={<MainContainer />} />
         </Routes>
       </div>
     </Router>
+    </>
   );
 }
 
