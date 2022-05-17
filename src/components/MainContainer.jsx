@@ -1,12 +1,40 @@
+import useFetch from "../hooks/useFetch";
+import { useEffect, useState } from "react";
+
+import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
+
 import MainHeader from "./header/MainHeader";
 import ChatContainer from "./chatcontainer/ChatContainer";
 
 const MainContainer = () => {
+  const [userId, setUserId] = useState();
+
+  const {
+    data: users,
+    loading,
+    error,
+  } = useFetch("http://localhost:1337/api/chatusers");
+
+  const location = useLocation();
+  const currentUserName = location.state;
+
+  const { id } = useParams();
+
+  useEffect(() => {
+    if (users !== null) {
+      setUserId(users.data[users.data.length - 1].id);
+    }
+  });
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error :(</p>;
+
   return (
     <>
       <div className="main-container container mx-auto h-full py-6">
         <MainHeader />
-        <ChatContainer />
+        <ChatContainer currentUserName={currentUserName} userId={userId} />
       </div>
     </>
   );
