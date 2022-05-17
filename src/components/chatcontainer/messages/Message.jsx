@@ -7,7 +7,7 @@ const Message = ({ mapmessage }) => {
   return (
     <div className="h-16 rounded-sm p-2 bg-zinc-50">
       <p>
-        {messagebody} {id}
+        {messagebody}
       </p>
     </div>
   );
