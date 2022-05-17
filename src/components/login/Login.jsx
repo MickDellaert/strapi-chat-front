@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import useFetch from "../../hooks/useFetch";
+// import useFetch from "../../hooks/useFetch";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -43,7 +43,6 @@ function Login() {
       body: JSON.stringify({ data: { username: newUser } }),
     });
     const result = await response.json();
-    console.log("add", result);
     return result;
   };
 
