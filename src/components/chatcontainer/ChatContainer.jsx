@@ -7,7 +7,8 @@ import MessageContainer from "./messages/MessageContainer";
 const ChatContainer = ({ currentUserName, userId }) => {
   const [message, setMessage] = useState("");
   const [newMessage, setNewMessage] = useState("");
-  const [currentChannel, setCurrentChannel] = useState(0);
+  const [currentChannel, setCurrentChannel] = useState("");
+  const [newCurrentChanel, setNewCurrentChanel] = useState("")
 
   const { data, error, loading } = useFetch(
     "http://localhost:1337/api/messages?populate=chatusers",
@@ -20,19 +21,21 @@ const ChatContainer = ({ currentUserName, userId }) => {
 
   const getChannel = (e) => {
     setCurrentChannel(e.target.id);
+    // console.log(currentChannel)
   };
 
-  // useEffect(() => {
-  //   setCurrentChannel(currentChannel);
-  // }, [currentChannel]);
+  useEffect(() => {
+    setCurrentChannel(currentChannel);
+  }, [currentChannel]);
 
-  async function createNewMessage(newMessage, userId) {
+  async function createNewMessage(newMessage, userId, newChannel) {
     const url = `http://localhost:1337/api/messages`;
 
     const body = {
       data: {
         messagebody: newMessage,
         chatusers: { id: userId },
+        channel: {id: newChannel}
       },
     };
     const response = await fetch(url, {
@@ -48,8 +51,11 @@ const ChatContainer = ({ currentUserName, userId }) => {
   const postMessage = () => {
     const newMessage = message;
     setNewMessage(newMessage);
-    createNewMessage(newMessage, userId);
-    setCurrentChannel(currentChannel)
+    const newChannel = currentChannel;
+    setNewCurrentChanel(newChannel)
+    console.log("function" + currentChannel)
+    createNewMessage(newMessage, userId, newChannel);
+
   };
 
   if (loading) return <p>Loading...</p>;
