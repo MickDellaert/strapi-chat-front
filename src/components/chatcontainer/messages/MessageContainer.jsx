@@ -4,7 +4,7 @@ import useFetch from "../../../hooks/useFetch";
 import Messages from "./Messages";
 import InputContainer from "./InputContainer";
 
-const MessageContainer = ({ userId, currentUserName }) => {
+const MessageContainer = ({ userId }) => {
   
   const [message, setMessage] = useState("");
   const [newMessage, setNewMessage] = useState("");
@@ -52,7 +52,7 @@ const MessageContainer = ({ userId, currentUserName }) => {
         <Messages data={data} />
         <InputContainer
           getInput={getInput}
-          postMessage={postMessage}
+          handleClick={postMessage}
         />
       </div>
     </>

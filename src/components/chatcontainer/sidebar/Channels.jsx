@@ -1,10 +1,16 @@
 import Channel from "./Channel";
 
-const Channels = () => {
+const Channels = ({ channels }) => {
+  console.log(channels);
   return (
-    <div className="channels">
-      <Channel />
-    </div>
+    <>
+      <h4 className="text-lg underline">channels</h4>
+      <div className="channels">
+        {channels.data.map((channel) => (
+          <Channel key={channel.id} channel={channel} />
+        ))}
+      </div>
+    </>
   );
 };
 

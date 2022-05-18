@@ -1,7 +1,8 @@
 const User = ({currentUserName, userId}) => {
   return (
     <>
-      <div>user</div>
+    
+      <div className="text-lg underline">users</div>
       <p>
         {currentUserName}
         {userId}
