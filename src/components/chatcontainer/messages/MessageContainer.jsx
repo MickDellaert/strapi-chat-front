@@ -1,14 +1,9 @@
-
-
 import Messages from "./Messages";
 import InputContainer from "../../common/InputContainer";
 import Button from "../../common/Button";
 import Input from "../../common/Input";
 
 const MessageContainer = ({ getInput, data, postMessage }) => {
-
-
-
   return (
     <>
       <div className="message-container relative col-span-8 bg-zinc-100">
