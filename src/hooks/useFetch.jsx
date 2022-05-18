@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const useFetch = (url, newMessage) => {
+const useFetch = (url, newMessage, currentChannel) => {
 
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
@@ -22,7 +22,7 @@ const useFetch = (url, newMessage) => {
     };
 
     fetchData();
-  }, [url, newMessage]);
+  }, [url, newMessage, currentChannel]);
 
   return { data, error, loading };
 };

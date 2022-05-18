@@ -1,51 +1,13 @@
-import { useState } from "react";
-import useFetch from "../../../hooks/useFetch";
+
 
 import Messages from "./Messages";
 import InputContainer from "../../common/InputContainer";
 import Button from "../../common/Button";
 import Input from "../../common/Input";
 
-const MessageContainer = ({ userId }) => {
-  const [message, setMessage] = useState("");
-  const [newMessage, setNewMessage] = useState("");
+const MessageContainer = ({ getInput, data, postMessage }) => {
 
-  const { data, error, loading } = useFetch(
-    "http://localhost:1337/api/messages?populate=chatusers",
-    newMessage
-  );
 
-  const getInput = (e) => {
-    setMessage(e.target.value);
-  };
-
-  async function createNewMessage(newMessage, userId) {
-    const url = `http://localhost:1337/api/messages`;
-
-    const body = {
-      data: {
-        messagebody: newMessage,
-        chatusers: { id: userId },
-      },
-    };
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    });
-    return response.json();
-  }
-
-  const postMessage = () => {
-    const newMessage = message;
-    setNewMessage(newMessage);
-    createNewMessage(newMessage, userId);
-  };
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :(</p>;
 
   return (
     <>
