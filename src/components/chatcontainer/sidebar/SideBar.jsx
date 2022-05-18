@@ -10,13 +10,13 @@ import ListItem from "../../common/ListItem";
 import List from "../../common/List";
 
 const SideBar = ({ currentUserName, userId, getChannel }) => {
-  const [channel, setChannel] = useState(49);
-  const [newChannel, setNewChannel] = useState(49);
-  const [startChannel, setStartChannel] = useState(49);
+  const [channel, setChannel] = useState(56);
+  const [newChannel, setNewChannel] = useState(56);
+  const [startChannel, setStartChannel] = useState(56);
 
   const { data: users } = useFetch("http://localhost:1337/api/chatusers");
   const { data: channelLoad } = useFetch(
-    "http://localhost:1337/api/channels/49",
+    "http://localhost:1337/api/channels/56",
     startChannel
   );
 

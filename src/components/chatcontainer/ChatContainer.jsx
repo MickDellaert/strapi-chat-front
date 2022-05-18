@@ -7,7 +7,7 @@ import MessageContainer from "./messages/MessageContainer";
 const ChatContainer = ({ currentUserName, userId }) => {
   const [message, setMessage] = useState("");
   const [newMessage, setNewMessage] = useState("");
-  const [currentChannel, setCurrentChannel] = useState(49);
+  const [currentChannel, setCurrentChannel] = useState(56);
   const [channelData, setChannelData] = useState();
   const [messageArray, setMessageArray] = useState([]);
 
@@ -16,11 +16,11 @@ const ChatContainer = ({ currentUserName, userId }) => {
     error,
     loading,
   } = useFetch(
-    `http://localhost:1337/api/channels/${currentChannel}?populate=messages`,
+    `http://localhost:1337/api/channels/${currentChannel}?populate=*`,
     newMessage,
     currentChannel
   );
-
+ console.log(channels)
   const getInput = (e) => {
     setMessage(e.target.value);
   };
@@ -83,7 +83,7 @@ const ChatContainer = ({ currentUserName, userId }) => {
   if (error) return <p>Error :(</p>;
 
   const messagesArray = channels.data.attributes.messages.data;
-  console.log(messagesArray);
+  // console.log(messagesArray);
 
   // console.log(channels.data.attributes.messages.data[0].attributes.messagebody);
 
