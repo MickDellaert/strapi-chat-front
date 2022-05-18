@@ -5,14 +5,15 @@ import Channels from "./Channels";
 import User from "./User";
 import SideBarInputContainer from "./SideBarInputContainer";
 
-
-
-const SideBar = ({currentUserName, userId}) => {
-
+const SideBar = ({ currentUserName, userId }) => {
   const [channel, setChannel] = useState("");
   const [newChannel, setNewChannel] = useState("");
 
-  const { data: channels, error, loading } = useFetch(
+  const {
+    data: channels,
+    error,
+    loading,
+  } = useFetch(
     "http://localhost:1337/api/channels?populate=chatusers",
     newChannel
   );
@@ -52,10 +53,9 @@ const SideBar = ({currentUserName, userId}) => {
   return (
     <>
       <div className="sidebar col-span-2 p-4 text-white relative rounded-bl-lg bg-fuchsia-800">
+        <User currentUserName={currentUserName} userId={userId} />
         <Channels channels={channels} />
-        <User currentUserName={currentUserName} userId={userId}/>
-        <SideBarInputContainer getInput={getInput} 
-          handleClick={postChannel}/>
+        <SideBarInputContainer getInput={getInput} handleClick={postChannel} />
       </div>
     </>
   );
