@@ -1,5 +1,5 @@
 import useFetch from "../../../hooks/useFetch";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // import Channels from "./Channels";
 import User from "./User";
@@ -10,21 +10,30 @@ import ListItem from "../../common/ListItem";
 import List from "../../common/List";
 
 const SideBar = ({ currentUserName, userId, getChannel }) => {
-  const [channel, setChannel] = useState("");
-  const [newChannel, setNewChannel] = useState("");
+  const [channel, setChannel] = useState(49);
+  const [newChannel, setNewChannel] = useState(49);
+  const [startChannel, setStartChannel] = useState(49);
 
   const { data: users } = useFetch("http://localhost:1337/api/chatusers");
+  const { data: channelLoad } = useFetch(
+    "http://localhost:1337/api/channels/49",
+    startChannel
+  );
 
   const {
     data: channels,
     error,
     loading,
-  } = useFetch(
-    "http://localhost:1337/api/channels?populate=chatusers",
-    newChannel
-  );
+  } = useFetch("http://localhost:1337/api/channels", newChannel);
 
-  console.log(users);
+  useEffect(() => {
+    setStartChannel(startChannel);
+  });
+
+  useEffect(() => {
+    setChannel(channel);
+  });
+  // console.log(users);
 
   const getInput = (e) => {
     setChannel(e.target.value);
@@ -57,6 +66,8 @@ const SideBar = ({ currentUserName, userId, getChannel }) => {
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
+
+  console.log(channelLoad);
 
   return (
     <>

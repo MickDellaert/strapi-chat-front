@@ -1,12 +1,11 @@
 import Message from "./Message";
 
-const Messages = ({ data }) => {
-
+const Messages = ({ messagesArray }) => {
   return (
     <>
       <div className="messages p-4 h-7/8">
-        {data.data.map((mapmessage) => (
-          <Message key={mapmessage.id} mapmessage={mapmessage}/>
+        {messagesArray.map((mapmessage) => (
+          <Message key={mapmessage.id} mapmessage={mapmessage} />
         ))}
       </div>
     </>
