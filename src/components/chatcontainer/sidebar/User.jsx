@@ -1,12 +1,13 @@
-const User = ({currentUserName, userId}) => {
+const User = ({ currentUserName, userId }) => {
   return (
     <>
-    
-      <div className="text-lg underline">Current User</div>
-      <p>
-        {currentUserName}
-        {userId}
-      </p>
+      <div>
+        <div className="text-lg underline">Current User</div>
+        <p>
+          {currentUserName}
+          {userId}
+        </p>
+      </div>
     </>
   );
 };

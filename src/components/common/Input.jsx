@@ -1,6 +1,4 @@
-
-
-const Input = ({getInput, value, className}) => {
+const Input = ({ getInput, value, className }) => {
   return (
     <input
       className={className}
