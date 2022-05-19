@@ -10,9 +10,8 @@ import ListItem from "../../common/ListItem";
 import List from "../../common/List";
 
 const SideBar = ({ currentUserName, userId, getChannel }) => {
-  const [channel, setChannel] = useState(56);
-  const [newChannel, setNewChannel] = useState(56);
-  const [startChannel, setStartChannel] = useState(56);
+  const [channel, setChannel] = useState();
+  const [newChannel, setNewChannel] = useState();
 
   const { data: users } = useFetch("http://localhost:1337/api/chatusers");
   // const { data: channelLoad } = useFetch(
@@ -26,9 +25,9 @@ const SideBar = ({ currentUserName, userId, getChannel }) => {
     loading,
   } = useFetch("http://localhost:1337/api/channels", newChannel);
 
-  useEffect(() => {
-    setStartChannel(startChannel);
-  });
+  // useEffect(() => {
+  //   setStartChannel(startChannel);
+  // });
 
   useEffect(() => {
     setChannel(channel);
@@ -60,6 +59,7 @@ const SideBar = ({ currentUserName, userId, getChannel }) => {
 
   const postChannel = () => {
     const newChannel = channel;
+    setChannel(channel);
     setNewChannel(newChannel);
     createNewChannel(newChannel, userId);
   };

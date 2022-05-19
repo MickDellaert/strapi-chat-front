@@ -7,7 +7,7 @@ import MessageContainer from "./messages/MessageContainer";
 const ChatContainer = ({ currentUserName, userId }) => {
   const [message, setMessage] = useState("");
   const [newMessage, setNewMessage] = useState("");
-  const [currentChannel, setCurrentChannel] = useState(56);
+  const [currentChannel, setCurrentChannel] = useState(61);
   const [channelData, setChannelData] = useState();
   const [messageArray, setMessageArray] = useState([]);
 
