@@ -1,4 +1,5 @@
-const Message = ({ mapmessage }) => {
+const Message = ({ mapmessage, currentUserName }) => {
+  console.log(mapmessage)
   // const {
   //   id,
   //   attributes: { messagebody },
@@ -6,7 +7,8 @@ const Message = ({ mapmessage }) => {
 
   return (
     <div className="h-16 rounded-sm p-2 bg-zinc-50">
-      <p>{mapmessage.attributes.messagebody}</p>
+      <p>{mapmessage.attributes.messagebody}{mapmessage.attributes.username}</p>
+      <p>{currentUserName}</p>
     </div>
   );
 };

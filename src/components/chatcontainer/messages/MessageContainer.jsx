@@ -3,11 +3,14 @@ import InputContainer from "../../common/InputContainer";
 import Button from "../../common/Button";
 import Input from "../../common/Input";
 
-const MessageContainer = ({ getInput, messagesArray, postMessage }) => {
+const MessageContainer = ({ data, getInput, postMessage, messagesArray, currentUserName }) => {
+
+  console.log(currentUserName)
+  
   return (
     <>
       <div className="message-container relative col-span-8 bg-zinc-100">
-        <Messages messagesArray={messagesArray} />
+        <Messages data={data} messagesArray={messagesArray} currentUserName={currentUserName} />
         <InputContainer
           inputContainerClass={`input-container absolute bottom-0 grid grid-cols-10 w-full h-20 p-4 rounded-br-lg bg-zinc-200`}
         >

@@ -1,12 +1,12 @@
-const User = ({ currentUserName, userId }) => {
+const User = ({ nowUser, currentUserName, currentChannel, userId }) => {
   return (
     <>
       <div>
         <div className="text-lg underline">Current User</div>
-        <p>
-          {currentUserName}
-          {userId}
-        </p>
+        <p>{nowUser}</p>
+        <p>{userId}</p>
+
+        <p>{currentChannel}</p>
       </div>
     </>
   );

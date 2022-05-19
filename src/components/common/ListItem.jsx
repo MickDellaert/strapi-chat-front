@@ -9,3 +9,6 @@ const ListItem = ({ object, detail, onClick }) => {
 };
 
 export default ListItem;
+
+  // console.log(channels.data.attributes.messages.data[0].attributes.messagebody);
+
