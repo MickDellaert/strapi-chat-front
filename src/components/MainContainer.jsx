@@ -27,8 +27,8 @@ const MainContainer = () => {
     }
   });
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :(</p>;
+  if (loading) return;
+  if (error) return;
 
   return (
     <>

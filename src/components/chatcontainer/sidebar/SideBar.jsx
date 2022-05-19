@@ -15,10 +15,10 @@ const SideBar = ({ currentUserName, userId, getChannel }) => {
   const [startChannel, setStartChannel] = useState(56);
 
   const { data: users } = useFetch("http://localhost:1337/api/chatusers");
-  const { data: channelLoad } = useFetch(
-    "http://localhost:1337/api/channels/56",
-    startChannel
-  );
+  // const { data: channelLoad } = useFetch(
+  //   "http://localhost:1337/api/channels/56",
+  //   startChannel
+  // );
 
   const {
     data: channels,
@@ -64,10 +64,10 @@ const SideBar = ({ currentUserName, userId, getChannel }) => {
     createNewChannel(newChannel, userId);
   };
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :(</p>;
+  if (loading) return;
+  if (error) return;
 
-  console.log(channelLoad);
+  // console.log(channelLoad);
 
   return (
     <>
@@ -82,11 +82,13 @@ const SideBar = ({ currentUserName, userId, getChannel }) => {
           />
         </List>
         <List title={"Users"}>
-          <ListItem object={users} detail={"username"} />
+          <ListItem 
+            object={users} 
+            detail={"username"} />
         </List>
         <InputContainer
           inputContainerClass={
-            "input-container absolute bottom-0 grid grid-cols-10 w-full h-20 p-4 rounded-br-lg bg-zinc-200"
+            "input-container absolute bottom-0 left-0 grid grid-cols-10 w-full h-20 p-4 bg-zinc-200"
           }
         >
           <Input getInput={getInput} className={"col-span-6 text-black"} />
