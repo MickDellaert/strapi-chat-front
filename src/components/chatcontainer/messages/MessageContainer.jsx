@@ -19,7 +19,6 @@ const MessageContainer = ({
     error,
   } = useFetch(`http://localhost:1337/api/chatusers/${userId}`);
 
-  // console.log(user);
 
   if (loading) return <p>loading</p>;
   if (error) return <p>error</p>;

@@ -1,6 +1,6 @@
 const CurrentListItem = ({ object, detail, onClick }) => {
 
-  console.log(object.data.attributes.chatusers.data)
+  // console.log(object.data.attributes.chatusers.data)
 
   return (
     <>

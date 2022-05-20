@@ -7,7 +7,43 @@ import MessageContainer from "./messages/MessageContainer";
 const ChatContainer = ({ currentUserName, userId }) => {
   const [message, setMessage] = useState("");
   const [newMessage, setNewMessage] = useState("");
-  const [currentChannel, setCurrentChannel] = useState(120);
+  const [currentChannel, setCurrentChannel] = useState(
+    JSON.parse(window.localStorage.getItem("state"))
+  );
+  const [usersArray, setusersArray] = useState([]);
+
+  // /api/restaurants?filters[chef][restaurants][stars][$eq]=5
+
+  const { data: users } = useFetch(
+    `http://localhost:1337/api/channels/120?populate[chatusers][fields][0]=id`
+  );
+
+  // /api/articles?populate[category][fields][0]=name&populate[category][fields][1]=url
+
+  
+  useEffect(()=>{
+    setusersArray(usersArray)
+    console.log(usersArray)
+  },[])
+  
+  useEffect(() => {
+    async function fetchData() {
+      const res = await fetch(
+        `http://localhost:1337/api/channels/${currentChannel}?populate[chatusers][fields][0]=id`
+      );
+      const json = await res.json();
+      console.log(json);
+      setusersArray(json.data.attributes.chatusers.data);
+      console.log(json.data.attributes.chatusers.data);
+    }
+    fetchData();
+  }, [currentChannel]);
+
+
+  useEffect(() => {
+    console.log(usersArray);
+  }, [currentChannel]);
+
 
   const { data, error, loading } = useFetch(
     `http://localhost:1337/api/channels/${currentChannel}?populate=*`,
@@ -15,10 +51,13 @@ const ChatContainer = ({ currentUserName, userId }) => {
     currentChannel
   );
 
+  // useEffect(() => {
+  //   setCurrentChannel(JSON.parse(window.sessionStorage.getItem("state")));
+  // }, []);
 
   useEffect(() => {
-    setCurrentChannel(currentChannel)
-  },[currentChannel])
+    window.localStorage.setItem("state", currentChannel);
+  }, [currentChannel]);
 
   const getInput = (e) => {
     setMessage(e.target.value);
@@ -28,11 +67,11 @@ const ChatContainer = ({ currentUserName, userId }) => {
     setCurrentChannel(e.target.id);
 
     async function addUser() {
-      const url = `http://localhost:1337/api/chatusers/${userId}`;
+      const url = `http://localhost:1337/api/channels/${currentChannel}`;
 
       const body = {
         data: {
-          channels: { id: currentChannel },
+          chatusers: [...usersArray, userId ],
         },
       };
       const response = await fetch(url, {
@@ -48,9 +87,9 @@ const ChatContainer = ({ currentUserName, userId }) => {
     addUser();
   };
 
-  useEffect(() => {
-    setCurrentChannel(currentChannel);
-  }, [currentChannel]);
+  // useEffect(() => {
+  //   setCurrentChannel(currentChannel);
+  // }, [currentChannel]);
 
   async function createNewMessage(message, userId, currentChannel) {
     const url = `http://localhost:1337/api/messages`;
@@ -78,27 +117,12 @@ const ChatContainer = ({ currentUserName, userId }) => {
     createNewMessage(message, userId, currentChannel);
   };
 
-  console.log(userId)
-
-  // useEffect(() => {
-  //     setMessageArray(channels.data.attributes.messages.data);
-
-  // });
-
   if (loading) return;
   if (error) return;
 
+  const usersTest = data.data.attributes.chatusers.data;
+
   const messagesArray = data.data.attributes.messages.data;
-
-  // const usersArray = data.data.attributes.chatusers.data;
-
-  // console.log(usersArray);
-
-  // console.log(messagesArray);
-
-  // console.log(channels.data.attributes.messages.data[0].attributes.messagebody);
-
-  // const first = messagesArray[0].attributes.messagebody
 
   return (
     <>
@@ -113,7 +137,7 @@ const ChatContainer = ({ currentUserName, userId }) => {
           // usersArray={usersArray}
         />
         <MessageContainer
-        userId={userId}
+          userId={userId}
           currentUserName={currentUserName}
           postMessage={postMessage}
           getInput={getInput}
