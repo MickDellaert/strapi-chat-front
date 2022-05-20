@@ -11,7 +11,4 @@ const CurrentListItem = ({ object, detail, onClick }) => {
   );
 };
 
-
-  // console.log(channels.data.attributes.messages.data[0].attributes.messagebody);
-
 export default CurrentListItem;

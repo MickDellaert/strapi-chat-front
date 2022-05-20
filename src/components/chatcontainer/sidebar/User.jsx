@@ -1,9 +1,9 @@
-const User = ({ nowUser, currentUserName, currentChannel, userId }) => {
+const User = ({ currentUserName, currentChannel, userId }) => {
   return (
     <>
       <div>
         <div className="text-lg underline">Current User</div>
-        <p>{nowUser}</p>
+        <p>{currentUserName}</p>
         <p>{userId}</p>
 
         <p>{currentChannel}</p>

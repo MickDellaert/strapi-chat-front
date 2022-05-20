@@ -14,7 +14,11 @@ const ChatContainer = ({ currentUserName, userId }) => {
     newMessage,
     currentChannel
   );
-  // console.log(data);
+
+
+  useEffect(() => {
+    setCurrentChannel(currentChannel)
+  },[currentChannel])
 
   const getInput = (e) => {
     setMessage(e.target.value);
@@ -28,7 +32,7 @@ const ChatContainer = ({ currentUserName, userId }) => {
 
       const body = {
         data: {
-          channel: { id: currentChannel },
+          channels: { id: currentChannel },
         },
       };
       const response = await fetch(url, {
@@ -54,6 +58,7 @@ const ChatContainer = ({ currentUserName, userId }) => {
     const body = {
       data: {
         messagebody: message,
+        currentuser: currentUserName,
         chatuser: { id: userId },
         channels: { id: currentChannel },
       },
@@ -73,14 +78,12 @@ const ChatContainer = ({ currentUserName, userId }) => {
     createNewMessage(message, userId, currentChannel);
   };
 
-  // console.log("currentchannel" + currentChannel);
+  console.log(userId)
+
   // useEffect(() => {
   //     setMessageArray(channels.data.attributes.messages.data);
-  //     console.log(messageArray);
 
   // });
-
-  // console.log(currentChannel)
 
   if (loading) return;
   if (error) return;
@@ -96,7 +99,6 @@ const ChatContainer = ({ currentUserName, userId }) => {
   // console.log(channels.data.attributes.messages.data[0].attributes.messagebody);
 
   // const first = messagesArray[0].attributes.messagebody
-  // console.log(first)
 
   return (
     <>
@@ -111,6 +113,7 @@ const ChatContainer = ({ currentUserName, userId }) => {
           // usersArray={usersArray}
         />
         <MessageContainer
+        userId={userId}
           currentUserName={currentUserName}
           postMessage={postMessage}
           getInput={getInput}

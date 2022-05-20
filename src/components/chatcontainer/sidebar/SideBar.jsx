@@ -1,5 +1,5 @@
 import useFetch from "../../../hooks/useFetch";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
 // import Channels from "./Channels";
 import User from "./User";
@@ -16,12 +16,12 @@ const SideBar = ({
   userId,
   getChannel,
   currentChannel,
-  setCurrentChannel
+  setCurrentChannel,
 }) => {
   const [channel, setChannel] = useState();
   const [newChannel, setNewChannel] = useState();
 
-  const { data: users } = useFetch("http://localhost:1337/api/chatusers");
+  const { data: users } = useFetch(`http://localhost:1337/api/chatusers/`);
 
   const {
     data: channels,
@@ -36,12 +36,10 @@ const SideBar = ({
   // useEffect(() => {
   //   setChannel(channel);
   // });
-  // console.log(data);
 
   const getInput = (e) => {
     setChannel(e.target.value);
   };
-
 
   async function createNewChannel(newChannel, userId) {
     const url = `http://localhost:1337/api/channels`;
@@ -50,6 +48,7 @@ const SideBar = ({
       data: {
         channelname: newChannel,
         chatusers: { id: userId },
+        messages: {id: "813" }
       },
     };
     const response = await fetch(url, {
@@ -64,26 +63,26 @@ const SideBar = ({
 
   const postChannel = () => {
     const newChannel = channel;
-    // console.log("newchannel" + newChannel)
     setChannel(channel);
     setNewChannel(newChannel);
 
-
-    setCurrentChannel(channels.data[channels.data.length - 1].id)
+    setCurrentChannel(channels.data[channels.data.length - 1].id);
     createNewChannel(newChannel, userId);
   };
 
   if (loading) return <p>loading</p>;
   if (error) return <p>error</p>;
 
-  // console.log(channelLoad);
-
   return (
     <>
       <div className="sidebar col-span-2 p-4 text-white relative rounded-bl-lg bg-fuchsia-800">
-        <User currentUserName={currentUserName} userId={userId} currentChannel={currentChannel}/>
+        <User
+          currentUserName={currentUserName}
+          userId={userId}
+          currentChannel={currentChannel}
+        />
         {/* <Channels channels={channels} /> */}
-        
+
         <List title={"Channel Users"}>
           <CurrentListItem
             object={data}
@@ -91,7 +90,7 @@ const SideBar = ({
             // onClick={getChannel}
           />
         </List>
-        
+
         <List title={"All Channels"}>
           <ListItem
             object={channels}
