@@ -47,8 +47,8 @@ const SideBar = ({
     const body = {
       data: {
         channelname: newChannel,
-        chatusers: { id: userId },
-        messages: {id: "813" }
+        chatuser: { id: userId },
+        messages: {id: "815" }
       },
     };
     const response = await fetch(url, {

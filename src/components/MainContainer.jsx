@@ -10,25 +10,33 @@ import ChatContainer from "./chatcontainer/ChatContainer";
 const MainContainer = () => {
   const [userId, setUserId] = useState();
 
-  const {
-    data: users,
-    loading,
-    error,
-  } = useFetch("http://localhost:1337/api/chatusers");
+  // const {
+  //   data: users,
+  //   loading,
+  //   error,
+  // } = useFetch("http://localhost:1337/api/chatusers");
+
+
+useEffect(() =>{
+  console.log(sessionStorage.getItem("id"))
+  setUserId(sessionStorage.getItem("id"))
+  
+})
 
   const location = useLocation();
   const currentUserName = location.state;
+  console.log(location.state)
 
   const { id } = useParams();
 
-  useEffect(() => {
-    if (users !== null) {
-      setUserId(users.data[users.data.length - 1].id);
-    }
-  });
+  // useEffect(() => {
+  //   if (users !== null) {
+  //     setUserId(users.data[users.data.length - 1].id);
+  //   }
+  // });
 
-  if (loading) return;
-  if (error) return;
+  // if (loading) return;
+  // if (error) return;
 
   return (
     <>

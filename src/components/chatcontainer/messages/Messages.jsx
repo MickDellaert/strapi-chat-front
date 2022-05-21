@@ -10,6 +10,8 @@ const Messages = ({ data, messagesArray, currentUserName }) => {
   let messages = data.data.attributes.messages.data
   let chatusers = data.data.attributes.chatusers.data
 
+  // console.log(messages)
+
   let bigArray = [...messages, ...chatusers]
 
   // console.log(bigArray)

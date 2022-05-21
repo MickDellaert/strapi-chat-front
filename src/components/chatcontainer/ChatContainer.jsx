@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import useFetch from "../../hooks/useFetch";
 
 import SideBar from "./sidebar/SideBar";
@@ -7,43 +7,13 @@ import MessageContainer from "./messages/MessageContainer";
 const ChatContainer = ({ currentUserName, userId }) => {
   const [message, setMessage] = useState("");
   const [newMessage, setNewMessage] = useState("");
-  const [currentChannel, setCurrentChannel] = useState(
-    JSON.parse(window.localStorage.getItem("state"))
-  );
-  const [usersArray, setusersArray] = useState([]);
-
-  // /api/restaurants?filters[chef][restaurants][stars][$eq]=5
-
-  const { data: users } = useFetch(
-    `http://localhost:1337/api/channels/120?populate[chatusers][fields][0]=id`
-  );
-
-  // /api/articles?populate[category][fields][0]=name&populate[category][fields][1]=url
-
-  
-  useEffect(()=>{
-    setusersArray(usersArray)
-    console.log(usersArray)
-  },[])
-  
-  useEffect(() => {
-    async function fetchData() {
-      const res = await fetch(
-        `http://localhost:1337/api/channels/${currentChannel}?populate[chatusers][fields][0]=id`
-      );
-      const json = await res.json();
-      console.log(json);
-      setusersArray(json.data.attributes.chatusers.data);
-      console.log(json.data.attributes.chatusers.data);
-    }
-    fetchData();
-  }, [currentChannel]);
+  const [currentChannel, setCurrentChannel] = useState(238);
+  const currentChannelRef = useRef();
 
 
-  useEffect(() => {
-    console.log(usersArray);
-  }, [currentChannel]);
+  // JSON.parse(window.localStorage.getItem("state"))
 
+  const [usersArray, setUsersArray] = useState([]);
 
   const { data, error, loading } = useFetch(
     `http://localhost:1337/api/channels/${currentChannel}?populate=*`,
@@ -51,38 +21,100 @@ const ChatContainer = ({ currentUserName, userId }) => {
     currentChannel
   );
 
+  // console.log(data);
+
+  // /api/restaurants?filters[chef][restaurants][stars][$eq]=5
+
+  // const { data: users } = useFetch(
+  //   `http://localhost:1337/api/channels/120?populate[chatusers][fields][0]=id`
+  // );
+
+  // /api/articles?populate[category][fields][0]=name&populate[category][fields][1]=url
+
+  // useEffect(() => {
+  //   setUsersArray(usersArray);
+  //   // console.log(usersArray)
+  // }, []);
+
+  useEffect(() => {
+    async function fetchData() {
+      console.log("before fetch" + currentChannel);
+      const res = await fetch(
+        `http://localhost:1337/api/channels/${currentChannel}?populate[chatusers][fields][0]=id`
+      );
+      const json = await res.json();
+      // console.log(json);
+      setUsersArray(json.data.attributes.chatusers.data);
+      // console.log(json.data.attributes.chatusers.data);
+    }
+    fetchData();
+    console.log("currentchannel after fetch" + currentChannel);
+    console.log("userId after fetch" + userId);
+
+    setCurrentChannel(currentChannel);
+    console.log(userId);
+  }, [currentChannel]);
+
+  useEffect(() => {
+    setCurrentChannel(currentChannel);
+    console.log(usersArray);
+  }, [currentChannel]);
+
+  // useEffect(() => {
+  //   console.log(usersArray);
+  // }, [currentChannel]);
+
   // useEffect(() => {
   //   setCurrentChannel(JSON.parse(window.sessionStorage.getItem("state")));
   // }, []);
 
-  useEffect(() => {
-    window.localStorage.setItem("state", currentChannel);
-  }, [currentChannel]);
+  // useEffect(() => {
+  //   window.localStorage.setItem("state", currentChannel);
+  // }, [currentChannel]);
 
   const getInput = (e) => {
     setMessage(e.target.value);
   };
 
   const getChannel = (e) => {
+    currentChannelRef.current = e.target.id
     setCurrentChannel(e.target.id);
 
+    // console.log(e.target)
+    console.log("currentchannelRef click getChannel" + currentChannelRef.current);
+    console.log("currentchannel click getChannel" + currentChannel);
+    console.log("userId click getChannel" + userId);
+
     async function addUser() {
-      const url = `http://localhost:1337/api/channels/${currentChannel}`;
+      console.log("currentchannel inside adduser" + currentChannel);
+      const url = `http://localhost:1337/api/channels/${currentChannelRef.current}`;
 
       const body = {
         data: {
-          chatusers: [...usersArray, userId ],
+          chatusers: [...usersArray, userId],
+          // chatusers: { id: userId },
         },
       };
-      const response = await fetch(url, {
+      await fetch(url, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(body),
-      });
+      })
+        .then((res) => res.json())
+        .then((json) => {
+          console.log("json id" + json.data.id);
+          // setCurrentChannel(json.data.id)
+        });
 
-      return response.json();
+      console.log("currentchannel after put" + currentChannel);
+      console.log("userId after put" + userId);
+
+      // console.log(userId)
+      // console.log(usersArray)
+
+      // return response.json();
     }
     addUser();
   };
@@ -123,7 +155,7 @@ const ChatContainer = ({ currentUserName, userId }) => {
   const usersTest = data.data.attributes.chatusers.data;
 
   const messagesArray = data.data.attributes.messages.data;
-
+  console.log("currentusername" + currentUserName);
   return (
     <>
       <div className="chat-container grid grid-cols-10 h-7/8">
