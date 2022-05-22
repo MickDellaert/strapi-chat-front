@@ -11,7 +11,7 @@ function Login() {
 
   const getInput = (e) => {
     setUsername(e.target.value);
-    
+
     console.log(e.target);
   };
 
@@ -24,7 +24,10 @@ function Login() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ data: { username: newUser } }),
+      body: JSON.stringify({
+        data: { username: newUser ,
+        channel: { id: "238" }}
+      }),
     })
       .then((res) => res.json())
       .then((json) => {

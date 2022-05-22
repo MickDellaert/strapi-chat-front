@@ -7,7 +7,7 @@ import MessageContainer from "./messages/MessageContainer";
 const ChatContainer = ({ currentUserName, userId }) => {
   const [message, setMessage] = useState("");
   const [newMessage, setNewMessage] = useState("");
-  const [currentChannel, setCurrentChannel] = useState(238);
+  const [currentChannel, setCurrentChannel] = useState(JSON.parse(window.sessionStorage.getItem("state")));
   const currentChannelRef = useRef();
 
   // JSON.parse(window.localStorage.getItem("state"))
@@ -30,9 +30,9 @@ const ChatContainer = ({ currentUserName, userId }) => {
   //   setCurrentChannel(JSON.parse(window.sessionStorage.getItem("state")));
   // }, []);
 
-  // useEffect(() => {
-  //   window.sessionStorage.setItem("state",  JSON.stringify("238"));
-  // }, []);
+  useEffect(() => {
+    sessionStorage.setItem("state",  currentChannel);
+  }, [currentChannel]);
 
   // console.log(data);
 
@@ -68,10 +68,10 @@ const ChatContainer = ({ currentUserName, userId }) => {
     console.log(userId);
   }, [currentChannel]);
 
-  useEffect(() => {
-    setCurrentChannel(currentChannel);
-    console.log(usersArray);
-  }, [currentChannel]);
+  // useEffect(() => {
+  //   setCurrentChannel(currentChannel);
+  //   console.log(usersArray);
+  // }, [currentChannel]);
 
   // useEffect(() => {
   //   console.log(usersArray);
@@ -84,9 +84,9 @@ const ChatContainer = ({ currentUserName, userId }) => {
   };
 
   const getChannel = (e) => {
-    
+
+    setCurrentChannel(e.target.id);  
     currentChannelRef.current = e.target.id;
-    setCurrentChannel(e.target.id);
 
     // console.log(e.target)
     console.log(

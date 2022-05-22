@@ -75,7 +75,7 @@ const SideBar = ({
 
   return (
     <>
-      <div className="sidebar col-span-2 p-4 text-white relative rounded-bl-lg bg-fuchsia-800">
+      <div className="sidebar overflow-y-auto col-span-2 p-4 pb-24 text-white relative rounded-bl-lg bg-fuchsia-800">
         <User
           currentUserName={currentUserName}
           userId={userId}
