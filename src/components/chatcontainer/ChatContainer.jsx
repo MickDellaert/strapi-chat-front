@@ -10,16 +10,29 @@ const ChatContainer = ({ currentUserName, userId }) => {
   const [currentChannel, setCurrentChannel] = useState(238);
   const currentChannelRef = useRef();
 
-
   // JSON.parse(window.localStorage.getItem("state"))
 
+  console.log(  JSON.parse(window.localStorage.getItem("state"))
+  )
+
+
   const [usersArray, setUsersArray] = useState([]);
+
 
   const { data, error, loading } = useFetch(
     `http://localhost:1337/api/channels/${currentChannel}?populate=*`,
     newMessage,
     currentChannel
   );
+
+
+  // useEffect(() => {
+  //   setCurrentChannel(JSON.parse(window.sessionStorage.getItem("state")));
+  // }, []);
+
+  // useEffect(() => {
+  //   window.sessionStorage.setItem("state",  JSON.stringify("238"));
+  // }, []);
 
   // console.log(data);
 
@@ -64,35 +77,33 @@ const ChatContainer = ({ currentUserName, userId }) => {
   //   console.log(usersArray);
   // }, [currentChannel]);
 
-  // useEffect(() => {
-  //   setCurrentChannel(JSON.parse(window.sessionStorage.getItem("state")));
-  // }, []);
 
-  // useEffect(() => {
-  //   window.localStorage.setItem("state", currentChannel);
-  // }, [currentChannel]);
 
   const getInput = (e) => {
     setMessage(e.target.value);
   };
 
   const getChannel = (e) => {
-    currentChannelRef.current = e.target.id
+    
+    currentChannelRef.current = e.target.id;
     setCurrentChannel(e.target.id);
 
     // console.log(e.target)
-    console.log("currentchannelRef click getChannel" + currentChannelRef.current);
+    console.log(
+      "currentchannelRef click getChannel" + currentChannelRef.current
+    );
     console.log("currentchannel click getChannel" + currentChannel);
     console.log("userId click getChannel" + userId);
 
     async function addUser() {
       console.log("currentchannel inside adduser" + currentChannel);
-      const url = `http://localhost:1337/api/channels/${currentChannelRef.current}`;
+      const url = `http://localhost:1337/api/chatusers/${userId}`;
 
       const body = {
         data: {
-          chatusers: [...usersArray, userId],
+          // chatusers: [...usersArray, userId],
           // chatusers: { id: userId },
+          channel: { id: currentChannelRef.current }
         },
       };
       await fetch(url, {
@@ -105,6 +116,8 @@ const ChatContainer = ({ currentUserName, userId }) => {
         .then((res) => res.json())
         .then((json) => {
           console.log("json id" + json.data.id);
+          console.log(usersArray);
+
           // setCurrentChannel(json.data.id)
         });
 
@@ -144,6 +157,10 @@ const ChatContainer = ({ currentUserName, userId }) => {
     return response.json();
   }
 
+    useEffect(() => {
+    setCurrentChannel(currentChannel);
+  }, [currentChannel]);
+
   const postMessage = () => {
     setNewMessage(message);
     createNewMessage(message, userId, currentChannel);
@@ -152,9 +169,9 @@ const ChatContainer = ({ currentUserName, userId }) => {
   if (loading) return;
   if (error) return;
 
-  const usersTest = data.data.attributes.chatusers.data;
+  // const usersTest = data.data.attributes.chatusers.data;
 
-  const messagesArray = data.data.attributes.messages.data;
+  // const messagesArray = data.data.attributes.messages.data;
   console.log("currentusername" + currentUserName);
   return (
     <>
@@ -173,7 +190,7 @@ const ChatContainer = ({ currentUserName, userId }) => {
           currentUserName={currentUserName}
           postMessage={postMessage}
           getInput={getInput}
-          messagesArray={messagesArray}
+          // messagesArray={messagesArray}
           data={data}
         />
       </div>

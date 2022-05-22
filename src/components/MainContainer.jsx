@@ -18,14 +18,14 @@ const MainContainer = () => {
 
 
 useEffect(() =>{
-  console.log(sessionStorage.getItem("id"))
+  // console.log(sessionStorage.getItem("id"))
   setUserId(sessionStorage.getItem("id"))
   
 })
 
   const location = useLocation();
   const currentUserName = location.state;
-  console.log(location.state)
+  // console.log(location.state)
 
   const { id } = useParams();
 
