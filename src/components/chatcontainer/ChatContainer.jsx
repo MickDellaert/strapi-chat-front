@@ -4,13 +4,14 @@ import useFetch from "../../hooks/useFetch";
 import SideBar from "./sidebar/SideBar";
 import MessageContainer from "./messages/MessageContainer";
 
-const ChatContainer = ({ currentUserName, userId }) => {
+const ChatContainer = ({ currentUserName, userId, newUserId }) => {
   const [message, setMessage] = useState("");
   const [newMessage, setNewMessage] = useState("");
   const [currentChannel, setCurrentChannel] = useState(JSON.parse(sessionStorage.getItem("state")) || 238);
   const currentChannelRef = useRef();
 
   console.log(JSON.parse(localStorage.getItem("state")));
+  console.log("chat" + newUserId)
 
 
   const { data, error, loading } = useFetch(
@@ -36,7 +37,6 @@ const ChatContainer = ({ currentUserName, userId }) => {
     currentChannelRef.current = e.target.id;
 
     async function addUser() {
-      console.log("currentchannel inside adduser" + currentChannel);
       const url = `http://localhost:1337/api/chatusers/${userId}`;
 
       const body = {

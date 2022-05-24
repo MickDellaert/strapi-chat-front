@@ -3,9 +3,10 @@ import { Link } from "react-router-dom";
 
 import { useRef, useState } from "react";
 
-function Login() {
+function Login({newUserId, setNewUserId}) {
   const [username, setUsername] = useState("");
   const loginId = useRef();
+
 
   // const { data } = useFetch("http://localhost:1337/api/chatusers");
 
@@ -18,6 +19,7 @@ function Login() {
   // method using sessionstorage for getting user id
   const createNewUser = async (username) => {
     let newUser = username;
+    // setUsername(username)
 
     await fetch("http://localhost:1337/api/chatusers", {
       method: "POST",
@@ -34,6 +36,8 @@ function Login() {
         console.log("json " + json.data.id);
         let id = json.data.id;
         sessionStorage.setItem("id", id);
+
+        setNewUserId(json.data.id)
 
         // setUserid(id);
         // console.log("json2 " + userid);

@@ -9,7 +9,7 @@ import ChatContainer from "./chatcontainer/ChatContainer";
 
 
 
-const MainContainer = () => {
+const MainContainer = ({newUserId}) => {
   const [userId, setUserId] = useState();
 
   
@@ -38,7 +38,7 @@ useEffect(() =>{
     <>
       <div className="main-container container mx-auto h-full py-6">
         <MainHeader />
-        <ChatContainer currentUserName={currentUserName} userId={userId} />
+        <ChatContainer currentUserName={currentUserName} userId={userId} newUserId={newUserId}/>
       </div>
     </>
   );
