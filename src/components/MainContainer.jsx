@@ -7,19 +7,20 @@ import { useParams } from "react-router-dom";
 import MainHeader from "./header/MainHeader";
 import ChatContainer from "./chatcontainer/ChatContainer";
 
+
+
 const MainContainer = () => {
   const [userId, setUserId] = useState();
 
   
-  // const {
-  //   data: users,
-  //   loading,
-  //   error,
-  // } = useFetch("http://localhost:1337/api/chatusers");
+  const {
+    data,
+    loading,
+    error,
+  } = useFetch("http://localhost:1337/api/chatusers");
 
 
 useEffect(() =>{
-  // console.log(sessionStorage.getItem("id"))
   setUserId(sessionStorage.getItem("id"))
   
 })
@@ -30,14 +31,8 @@ useEffect(() =>{
 
   const { id } = useParams();
 
-  // useEffect(() => {
-  //   if (users !== null) {
-  //     setUserId(users.data[users.data.length - 1].id);
-  //   }
-  // });
-
-  // if (loading) return;
-  // if (error) return;
+  if (loading) return;
+  if (error) return;
 
   return (
     <>

@@ -65,11 +65,17 @@ function Login() {
 
   return (
     <>
+    <form>
       <input value={username} onChange={getInput} />
 
       <Link to={`/chat/${username}`} state={username}>
-        <button onClick={postUser}>button</button>
+        <input    
+        type="submit" 
+        value="submit"
+         onClick={postUser}
+        />
       </Link>
+      </form>
     </>
   );
 }

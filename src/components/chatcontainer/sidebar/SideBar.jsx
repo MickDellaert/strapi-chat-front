@@ -1,7 +1,6 @@
 import useFetch from "../../../hooks/useFetch";
 import { useState } from "react";
 
-// import Channels from "./Channels";
 import User from "./User";
 import InputContainer from "../../common/InputContainer";
 import Button from "../../common/Button";
@@ -29,13 +28,6 @@ const SideBar = ({
     loading,
   } = useFetch("http://localhost:1337/api/channels", newChannel);
 
-  // useEffect(() => {
-  //   setStartChannel(startChannel);
-  // });
-
-  // useEffect(() => {
-  //   setChannel(channel);
-  // });
 
   const getInput = (e) => {
     setChannel(e.target.value);
@@ -81,13 +73,11 @@ const SideBar = ({
           userId={userId}
           currentChannel={currentChannel}
         />
-        {/* <Channels channels={channels} /> */}
 
         <List title={"Channel Users"}>
           <CurrentListItem
             object={data}
             detail={"username"}
-            // onClick={getChannel}
           />
         </List>
 
